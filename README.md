@@ -2,21 +2,25 @@
 
 ## 📌 Project Overview
 
-This project develops a machine learning framework to predict the corrosion rate in reinforced concrete structures using sensor measurements.
+This project develops a machine learning framework to predict the **corrosion rate in reinforced concrete structures** using environmental and structural sensor measurements.
 
-Multiple regression models were trained and compared to identify the most accurate and reliable approach.
-
----
-
-## 🎯 Objective
-
-To estimate corrosion rate based on environmental and structural sensor data such as temperature, humidity, pH, ion concentration, and stress.
+Multiple regression algorithms were trained and evaluated to determine the most reliable model for corrosion prediction. While simpler models showed strong baseline performance, **XGBoost was selected as the primary model due to its superior ability to model complex relationships and maintain robustness across varying conditions.**
 
 ---
 
-## 📊 Dataset Description
+# 🎯 Objective
 
-A dataset of **1000 samples** was used with the following input features:
+To accurately estimate **corrosion rate** using sensor data representing environmental and structural conditions, including temperature, humidity, chemical properties, and mechanical stresses.
+
+The system aims to support **predictive maintenance and early detection of structural degradation** in reinforced concrete infrastructures.
+
+---
+
+# 📊 Dataset Description
+
+A dataset of **1000 samples** was used for training and evaluation.
+
+### Input Features
 
 * Temperature (°C)
 * Humidity (%)
@@ -27,32 +31,51 @@ A dataset of **1000 samples** was used with the following input features:
 * Stress in Y direction
 * Stress in Z direction
 
-Target variable:
+### Target Variable
 
 * Corrosion Rate
 
+These variables represent key environmental and mechanical factors that influence electrochemical corrosion processes in reinforced concrete.
+
 ---
 
-## ⚙️ Methodology
+# ⚙️ Methodology
 
-1. Imported dataset and performed basic validation
-2. Split data into training and testing sets
-3. Trained multiple regression models:
+The machine learning pipeline consisted of the following steps:
+
+1. **Dataset Loading and Validation**
+
+   * Verified feature integrity and numerical consistency.
+
+2. **Data Splitting**
+
+   * 80% Training data
+   * 20% Testing data
+
+3. **Model Training**
+
+   The following regression algorithms were implemented:
 
    * Linear Regression
    * Random Forest Regressor
    * Gradient Boosting Regressor
    * XGBoost Regressor
-4. Evaluated models using:
+
+4. **Model Evaluation**
+
+   Models were evaluated using:
 
    * R² Score
-   * RMSE
+   * Root Mean Squared Error (RMSE)
    * Cross-Validation
-5. Compared performance and selected the best model
+
+5. **Performance Comparison**
+
+   Model performance metrics were analyzed to identify the most reliable prediction model.
 
 ---
 
-## 📈 Model Performance
+# 📈 Model Performance
 
 | Model             | R² Score  | RMSE     |
 | ----------------- | --------- | -------- |
@@ -61,19 +84,43 @@ Target variable:
 | Gradient Boosting | 0.963     | 0.38     |
 | Random Forest     | 0.924     | 0.54     |
 
-Cross-Validation R²: **0.972 ± 0.003**
+Cross-Validation R² Score:
+
+```
+0.972 ± 0.003
+```
+
+This indicates **high model stability and strong predictive performance across multiple data splits**.
 
 ---
 
-## 🏆 Best Model
+# 🏆 Model Selection
 
-Linear Regression achieved the highest accuracy, indicating a predominantly linear relationship between sensor inputs and corrosion rate.
+Although **Linear Regression achieved the highest R² score**, it assumes a **strictly linear relationship** between input variables and corrosion rate.
+
+However, corrosion processes in reinforced concrete are influenced by **complex electrochemical, environmental, and mechanical interactions**. Such relationships are often **nonlinear and interdependent**.
+
+For this reason, **XGBoost was selected as the primary model for this framework.**
+
+Why XGBoost?
+
+XGBoost offers several advantages for engineering prediction tasks:
+
+* **Captures nonlinear relationships** between environmental and stress variables
+* **Handles complex feature interactions** without manual feature engineering
+* **Reduces overfitting** through gradient boosting regularization
+* **Highly scalable and efficient for tabular datasets**
+* Widely used in **industrial and research-grade predictive systems**
+
+While Linear Regression performs well for simple linear patterns, **XGBoost provides greater robustness when deployed in real-world environments where conditions may vary significantly.**
+
+Therefore, XGBoost was selected as the **preferred model for deployment and future system expansion.**
 
 ---
 
-## 💾 Saved Models
+# 💾 Saved Models
 
-The following trained models are included:
+The following trained models are included in this repository:
 
 * `linear_regression_model.pkl`
 * `xgboost_model.pkl`
@@ -82,24 +129,29 @@ The following trained models are included:
 
 ---
 
-## 🚀 How to Use the Model
+# 🚀 How to Use the Model
 
-### 1️⃣ Install dependencies
+## 1️⃣ Install Dependencies
 
-```
+```bash
 pip install pandas numpy scikit-learn xgboost joblib
 ```
 
-### 2️⃣ Load a model
+---
 
-```
+## 2️⃣ Load a Model
+
+```python
 import joblib
-model = joblib.load("linear_regression_model.pkl")
+
+model = joblib.load("xgboost_model.pkl")
 ```
 
-### 3️⃣ Make prediction
+---
 
-```
+## 3️⃣ Make a Prediction
+
+```python
 import pandas as pd
 
 sample = pd.DataFrame({
@@ -114,28 +166,32 @@ sample = pd.DataFrame({
 })
 
 prediction = model.predict(sample)
-print(prediction)
+
+print("Predicted Corrosion Rate:", prediction)
 ```
 
 ---
 
-## 🧠 Key Insights
+# 🧠 Key Insights
 
-* Corrosion rate shows a strong linear dependence on sensor variables
-* Simple models can perform as well as complex ensemble methods
-* The framework is suitable for real-time corrosion monitoring
-
----
-
-## 📚 Future Work
-
-* Integrate real sensor data
-* Deploy as real-time monitoring system
-* Build dashboard for visualization
-* Extend to time-series corrosion prediction
+* Environmental and mechanical sensor data can effectively predict corrosion behavior.
+* Corrosion rate demonstrates partially linear relationships with certain variables.
+* Ensemble models like **XGBoost can capture more complex patterns**, making them better suited for real-world prediction systems.
+* The framework demonstrates **high predictive reliability with cross-validation R² ≈ 0.972**.
 
 ---
 
-## 👨‍💻 Author
+# 📚 Future Work
 
-Machine Learning Corrosion Monitoring Project
+Potential improvements for this project include:
+
+
+* Development of a **real-time corrosion monitoring platform**
+* Creation of a **visual dashboard for infrastructure health analysis**
+* Extension to **time-series corrosion prediction models**
+* Deployment of the model as a **web API or monitoring service**
+
+---
+
+
+
