@@ -24,7 +24,6 @@ A dataset of **1000 samples** was used for training and evaluation.
 
 * Temperature (°C)
 * Humidity (%)
-* Strain
 * pH
 * Total Dissolved Solids (TDS ppm)
 * Stress in X direction
